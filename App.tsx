@@ -13,9 +13,8 @@ import {
 } from '@expo-google-fonts/archivo';
 
 import theme from './src/styles/theme';
-import { Scheduling } from './src/screens/Scheduling';
-import { SchedulingDetails } from './src/screens/SchedulingDetails';
-import { SchedulingComplete } from './src/screens/SchedulingComplete';
+
+import { Routes } from './src/routes';
 
 
 export default function App() {
@@ -29,12 +28,14 @@ export default function App() {
   });
 
   if(!fontsLoaded) {
-    <AppLoading />
+    return (
+      <AppLoading />
+    )
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedulingComplete />
+      <Routes />
     </ThemeProvider>
   );
 }
