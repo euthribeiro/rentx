@@ -28,9 +28,10 @@ export function SchedulingComplete(){
   return (
     <Container>
       <StatusBar 
-        barStyle="light-content" 
+        barStyle="light-content"
         translucent 
         backgroundColor="transparent"
+        
       />
       <LogoSvg width={width} />
       <Content>
