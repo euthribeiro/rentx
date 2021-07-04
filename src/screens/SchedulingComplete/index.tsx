@@ -31,7 +31,6 @@ export function SchedulingComplete(){
         barStyle="light-content"
         translucent 
         backgroundColor="transparent"
-        
       />
       <LogoSvg width={width} />
       <Content>
