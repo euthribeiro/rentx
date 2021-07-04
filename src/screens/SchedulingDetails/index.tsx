@@ -1,5 +1,9 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { useTheme } from 'styled-components';
+import { Feather } from '@expo/vector-icons';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
@@ -24,12 +28,24 @@ import {
   Rent,
   Period,
   Price,
-  About,
   Acessories,
   Footer,
+  RentalPeriod,
+  CalendarIcon,
+  DateInfo,
+  DateTitle,
+  DateValue,
+  RentalPrice,
+  RentalPriceLabel,
+  RentalPriceDetails,
+  RentalPriceQuote,
+  RentalPriceTotal,
 } from './style';
 
-export function CarDetails(){
+export function SchedulingDetails(){
+
+  const { colors } = useTheme();
+
   return (
     <Container>
       <StatusBar
@@ -64,10 +80,41 @@ export function CarDetails(){
           <Acessory name="Auto" icon={ExchangeSvg} />
           <Acessory name="2 pessoas" icon={PeopleSvg} />
         </Acessories>
-        <About>Este é automóvel desportivo. Surgiu do lendário touro de lide indultado na praça Real Maestranza de Sevilla. É um belíssimo carro para quem gosta de acelerar.</About>
+        <RentalPeriod>
+          <CalendarIcon>
+            <Feather 
+              name="calendar"
+              size={RFValue(24)}
+              color={colors.shape}
+            />
+          </CalendarIcon>
+
+          <DateInfo>
+            <DateTitle>DE</DateTitle>
+            <DateValue>18/06/2021</DateValue>
+          </DateInfo>
+
+          <Feather 
+            name="chevron-right"
+            size={RFValue(10)}
+            color={colors.text}
+          />
+
+          <DateInfo>
+            <DateTitle>ATÉ</DateTitle>
+            <DateValue>20/06/2021</DateValue>
+          </DateInfo>
+        </RentalPeriod>
+        <RentalPrice>
+          <RentalPriceLabel>Total</RentalPriceLabel>
+          <RentalPriceDetails>
+            <RentalPriceQuote>R$ 580 x3 diárias</RentalPriceQuote>
+            <RentalPriceTotal>R$ 2.900</RentalPriceTotal>
+          </RentalPriceDetails>
+        </RentalPrice>
       </Content>
       <Footer>
-        <Button title="Escolher período do aluguel" />
+        <Button title="Alugar agora" color={colors.success} />
       </Footer>
     </Container>
   );
