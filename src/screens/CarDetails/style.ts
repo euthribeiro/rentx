@@ -89,7 +89,7 @@ export const About = styled.Text`
 
 `;
 
-export const Acessories = styled.View`
+export const Accessories = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 
