@@ -20,5 +20,5 @@ export function Accessory({
       <Icon width={32} height={32} />
       <Name>{name}</Name>
     </Container>
-  );
+  ); 
 }

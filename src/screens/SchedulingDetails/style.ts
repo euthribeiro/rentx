@@ -76,7 +76,7 @@ export const Price = styled.Text`
   text-transform: uppercase;
 `;
 
-export const Acessories = styled.View`
+export const Accessories = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 
