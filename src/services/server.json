@@ -273,27 +273,34 @@
                 "id": "535e8de8-721b-4bac-8b72-7d29be7da467",
                 "unavailable_dates": {
                   "id": "535e8de8-721b-4bac-8b72-7d29be7da467",
-                  "unavailable_dates": [
-                    "2021-06-01",
-                    "2021-06-02",
-                    "2021-06-09",
-                    "2021-05-25",
-                    "2021-07-16",
-                    "2021-07-17",
-                    "2021-07-18",
-                    "2021-05-28",
-                    "2021-05-29",
-                    "2021-05-30",
-                    "2021-05-28",
-                    "2021-05-29",
-                    "2021-05-30",
-                    "2021-05-28",
-                    "2021-05-29",
-                    "2021-05-30",
-                    "2021-06-16",
-                    "2021-06-17",
-                    "2021-06-18"
-                  ],
+                  "unavailable_dates": {
+                    "id": "535e8de8-721b-4bac-8b72-7d29be7da467",
+                    "unavailable_dates": [
+                      "2021-06-01",
+                      "2021-06-02",
+                      "2021-06-09",
+                      "2021-05-25",
+                      "2021-07-16",
+                      "2021-07-17",
+                      "2021-07-18",
+                      "2021-05-28",
+                      "2021-05-29",
+                      "2021-05-30",
+                      "2021-05-28",
+                      "2021-05-29",
+                      "2021-05-30",
+                      "2021-05-28",
+                      "2021-05-29",
+                      "2021-05-30",
+                      "2021-06-16",
+                      "2021-06-17",
+                      "2021-06-18"
+                    ],
+                    "dates": [
+                      "2021-07-15",
+                      "2021-07-16"
+                    ]
+                  },
                   "dates": [
                     "2021-07-15",
                     "2021-07-16"
@@ -305,28 +312,34 @@
                 ]
               },
               "dates": [
-                "2021-07-15",
-                "2021-07-16"
+                "2021-07-16",
+                "2021-07-17"
               ]
             },
             "dates": [
+              "2021-07-15",
               "2021-07-16",
-              "2021-07-17"
+              "2021-07-17",
+              "2021-07-18",
+              "2021-07-19",
+              "2021-07-20",
+              "2021-07-21",
+              "2021-07-22",
+              "2021-07-23"
             ]
           },
           "dates": [
-            "2021-07-15",
-            "2021-07-16",
-            "2021-07-17",
-            "2021-07-18",
-            "2021-07-19",
-            "2021-07-20",
-            "2021-07-21",
-            "2021-07-22",
-            "2021-07-23"
+            "2021-07-30",
+            "2021-07-31"
           ]
         },
         "dates": [
+          "2021-07-24",
+          "2021-07-25",
+          "2021-07-26",
+          "2021-07-27",
+          "2021-07-28",
+          "2021-07-29",
           "2021-07-30",
           "2021-07-31"
         ]
@@ -1019,6 +1032,55 @@
       "startDate": "29/07/2021",
       "endDate": "30/07/2021",
       "id": 12
+    },
+    {
+      "user_id": 1,
+      "car": {
+        "id": "535e8de8-721b-4bac-8b72-7d29be7da467",
+        "brand": "Audi",
+        "name": "RS 5 Coupé",
+        "about": "O carro ainda tem sistema de tração nas quatro rodas Quattro com diferencial traseiro esportivo de série. De acordo com a Audi, ele faz o mesmo em 3,8 segundos na Sportback.",
+        "rent": {
+          "period": "Ao dia",
+          "price": 120
+        },
+        "fuel_type": "electric",
+        "thumbnail": "https://storage.googleapis.com/golden-wind/ignite/react-native/thumbnails/1.png",
+        "accessories": [
+          {
+            "type": "speed",
+            "name": "250km/h"
+          },
+          {
+            "type": "acceleration",
+            "name": "3.8s"
+          },
+          {
+            "type": "turning_diameter",
+            "name": "800 HP"
+          },
+          {
+            "type": "electric_motor",
+            "name": "Elétrico"
+          },
+          {
+            "type": "exchange",
+            "name": "Auto"
+          },
+          {
+            "type": "seats",
+            "name": "5 pessoas"
+          }
+        ],
+        "photos": [
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/1.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/2.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/3.png"
+        ]
+      },
+      "startDate": "23/07/2021",
+      "endDate": "30/07/2021",
+      "id": 13
     }
   ]
 }
