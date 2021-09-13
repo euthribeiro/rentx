@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import LogoSvg from '../../assets/logo_background_gray.svg';
@@ -15,14 +15,23 @@ import {
 } from './style';
 import { ConfirmButton } from '../../components/ConfirmButton';
 
-export function SchedulingComplete(){
+interface Params {
+  title: string;
+  message: string;
+  nextScreenRoute: string;
+}
 
+export function Confirmation(){
+
+  const route = useRoute();
   const { width } = useWindowDimensions();
 
   const navigation = useNavigation();
 
+  const { message, nextScreenRoute, title } = route.params as Params;
+
   function handleConfirm() {
-    navigation.navigate('Home');
+    navigation.navigate(nextScreenRoute);
   }
 
   return (
@@ -38,8 +47,8 @@ export function SchedulingComplete(){
           width={RFValue(80)} 
           height={RFValue(80)}
         />
-        <Title>Carro alugado</Title>
-        <Message>Agora você só precisa ir{'\n'}até a concessionária da RENTX{'\n'}pegar o seu automóvel.</Message>  
+        <Title>{title}</Title>
+        <Message>{message}</Message>  
       </Content>
       <Footer>
         <ConfirmButton 

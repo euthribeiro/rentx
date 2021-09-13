@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { StatusBar, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { useTheme } from 'styled-components';
@@ -17,6 +18,8 @@ import {
 } from './style';
 
 export function SignIn(){
+
+  const navigation = useNavigation();
 
   const { colors } = useTheme();
 
@@ -50,6 +53,10 @@ export function SignIn(){
         );
       }
     }
+  }
+
+  function handleNewAccount() {
+    navigation.navigate('SignUpFirstStep');
   }
 
   return (
@@ -92,7 +99,7 @@ export function SignIn(){
             />
             <Button 
               title="Criar conta gratuita"
-              onPress={() => {}}
+              onPress={handleNewAccount}
               color={colors.background_secondary}
               light
             />
