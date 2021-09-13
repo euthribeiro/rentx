@@ -35,8 +35,8 @@ export function Car({
         <Name>{data.name}</Name>
         <About>
           <Rent>
-            <Period>{data.rent.period}</Period>
-            <Price>{data.rent.price}</Price>
+            <Period>{data.period}</Period>
+            <Price>{data.price}</Price>
           </Rent>
 
           <Type>
