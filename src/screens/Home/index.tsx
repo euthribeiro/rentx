@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { Ionicons } from '@expo/vector-icons';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { synchronize } from '@nozbe/watermelondb/sync';
+import { database } from '../../database';
+import { Car as ModelCar } from '../../database/models/Car';
 
 import { api } from '../../services/api';
 
@@ -15,46 +18,80 @@ import {
   Header,
   TotalCars,
   CarList,
-  MyCarsButton,
 } from './styles';
-
-import { CarDTO } from '../../dtos/CarDTO';
-import { useTheme } from 'styled-components';
-
 
 export function Home(){
   
   const navigation = useNavigation();
-  const { colors } = useTheme();
+  const netInfo = useNetInfo();
 
   const [loading, setLoading] = useState(true);
-  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [cars, setCars] = useState<ModelCar[]>([]);
 
-  function handleCarDetails(car: CarDTO) {
+  function handleCarDetails(car: ModelCar) {
     navigation.navigate('CarDetails', {
       car
     });
   }
 
-  function handleMyCars() {
-    navigation.navigate('MyCars');
+  async function offlineSyncronize() {
+    await synchronize({
+      database,
+      pullChanges: async ({ lastPulledAt }) => {
+
+        const response = await api
+          .get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`);
+
+        const { changes, latestVersion } = response.data;
+        
+        return { changes: changes, timestamp: latestVersion };
+      },
+      pushChanges: async ({ changes }) => {
+        try {
+          const user = changes.users;
+
+          await api.post('users/sync', user);
+
+        } catch {}
+      }
+    });
   }
 
   useEffect(() => {
+
+    let isMounted = true;
+
     async function fetchCars() {
       try {
-        const response = await api.get('cars');
+       const carCollecttion = database.get<ModelCar>('cars');
 
-        setCars(response.data);
+       const cars = await carCollecttion.query().fetch();
+
+       if(isMounted) {
+         setCars(cars);
+       }
       } catch(error) {
 
       } finally {
-        setLoading(false);
+        if(isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchCars();
+
+    return () => {
+      isMounted = false;
+    }
   }, []);
+
+  useEffect(() => {
+    if(netInfo.isConnected === true) {
+      offlineSyncronize();
+    }
+
+  }, [netInfo.isConnected]);
 
   return (
     <Container>
@@ -75,13 +112,6 @@ export function Home(){
           renderItem={({ item }) => <Car data={item} onPress={() => handleCarDetails(item)} />}
         />
       }
-      <MyCarsButton onPress={handleMyCars}>
-        <Ionicons 
-          name="ios-car-sport" 
-          size={32}
-          color={colors.shape}
-        />
-      </MyCarsButton>
     </Container> 
   );
 }

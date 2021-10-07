@@ -22,7 +22,7 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 
   font-family: ${({ theme }) => theme.fonts.secondary_600};
-  font-size: ${RFValue(30)}px;
+  font-size: ${RFValue(29.9)}px;
   line-height: ${RFValue(34)}px;
 
   margin-top: 24px;

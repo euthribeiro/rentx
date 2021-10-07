@@ -1,13 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import { FlatList, StatusBar } from 'react-native';
+import { Alert, FlatList, StatusBar } from 'react-native';
 import { useTheme } from 'styled-components';
 import { BackButton } from '../../components/BackButton';
 import { Car } from '../../components/Car';
-import { CarDTO } from '../../dtos/CarDTO';
+import { Car as ModelCar } from '../../database/models/Car';
 import { api } from '../../services/api';
 
 import {
@@ -26,21 +26,22 @@ import {
   CarFooterDate,
 } from './style';
 import { Load } from '../../components/Load';
+import { format } from 'date-fns';
 
-interface CarProps {
-  user_id: string;
+interface DataProps {
   id: string;
-  car: CarDTO;
-  startDate: string;
-  endDate: string;
+  car: ModelCar;
+  start_date: string;
+  end_date: string;
 }
 
 export function MyCars(){
 
+  const isFocused = useIsFocused();
   const { colors } = useTheme();
   const navigation = useNavigation();
 
-  const [cars, setCars] = useState<CarProps[]>([]);
+  const [cars, setCars] = useState<DataProps[]>([]);
   const [loading, setLoading] = useState(true);
 
   function handleBack() {
@@ -48,19 +49,40 @@ export function MyCars(){
   }
 
   useEffect(() => {
+
+    let isMounted = true;
+
     async function fetchCars() {
       try {
-        const response = await api.get('schedules_byuser/?user_id=1');
-        setCars(response.data);
+        const response = await api.get('rentals');
+
+        const dataFormatted = response.data.map((data: DataProps) => {
+          return {
+            id: data.car.id,
+            car: data.car,
+            start_date: format(new Date(data.start_date), 'dd/MM/yyyy'),
+            end_date: format(new Date(data.start_date), 'dd/MM/yyyy')
+          };
+        })
+        
+        if(isMounted) {
+          setCars(dataFormatted);
+        }
       } catch (error) {
-        console.log(error);
+        Alert.alert('Agendamentos', 'Ocorreu uma falha ao buscar seus agendamentos')
       } finally {
-        setLoading(false);
+        if(isMounted) {
+          setLoading(false);
+        }
       }
     }
 
     fetchCars();
-  }, []);
+
+    return () => {
+      isMounted = false;
+    }
+  }, [isFocused]);
 
   return (
     <Container>
@@ -74,7 +96,7 @@ export function MyCars(){
           color={colors.shape}
           onPress={handleBack}
         />
-        <Title>Escolha uma{'\n'}data de início e{'\n'}fim do aluguel</Title>
+        <Title>Seus agendamentos, {'\n'}estão aqui.</Title>
         <SubTitle>Conforto, segurança e praticidade.</SubTitle>
       </Header>
       {loading ? <Load /> :
@@ -92,7 +114,7 @@ export function MyCars(){
                 <CarFooter>
                   <CarFooterTitle>Período</CarFooterTitle>
                   <CarFooterPeriod>
-                    <CarFooterDate>{item.startDate}</CarFooterDate>
+                    <CarFooterDate>{item.start_date}</CarFooterDate>
                     <AntDesign 
                       name="arrowright"
                       size={20}
@@ -101,7 +123,7 @@ export function MyCars(){
                         marginHorizontal: 10
                       }}
                     />
-                    <CarFooterDate>{item.endDate}</CarFooterDate>
+                    <CarFooterDate>{item.end_date}</CarFooterDate>
                   </CarFooterPeriod>
                 </CarFooter>
               </CarWrapper>

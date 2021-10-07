@@ -16,9 +16,11 @@ import Animated, {
 import {  
   Container
 } from './style';
+import { useAuth } from '../../hooks/auth';
 
 export function Splash(){
 
+  const { user } = useAuth();
   const navigation = useNavigation();
 
   const splashAnimation = useSharedValue(0);
@@ -62,7 +64,7 @@ export function Splash(){
   });
 
   function startApp() {
-    navigation.navigate('Home');
+    navigation.navigate('SignIn');
   }
 
   useEffect(() => {
